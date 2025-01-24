@@ -2,3 +2,4 @@
 mongo-data/
 .venv/
 last_processed_date.json
+/airflow_etl/utils/__pycache__
