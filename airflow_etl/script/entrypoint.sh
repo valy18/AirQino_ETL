@@ -1,11 +1,6 @@
 #!/bin/bash
 set -e
 
-if [ -e "/opt/airflow/requirements.txt" ]; then
-  $(command -v python) -m pip install --upgrade pip
-  $(command -v pip) install --user -r /opt/airflow/requirements.txt
-fi
-
 if [ ! -f "/tmp/airflow.db" ]; then
   airflow db init && \
   airflow users create \

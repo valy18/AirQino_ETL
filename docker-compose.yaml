@@ -28,9 +28,7 @@ services:
         max-size: 10m
         max-file: "3"
     volumes:
-      - ./airflow_etl/dags:/opt/airflow/dags
       - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
-      - ./airflow_etl/requirements.txt:/opt/airflow/requirements.txt
     ports:
       - "8080:8080"
     healthcheck:
