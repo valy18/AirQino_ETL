@@ -1,5 +1,5 @@
-# Ignorer le dossier mongo-data
 mongo-data/
 .venv/
-last_processed_date.json
 /airflow_etl/utils/__pycache__
+/airflow_etl/dags/__pycache__
+airflow_etl/logs/

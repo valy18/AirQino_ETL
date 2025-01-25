@@ -51,6 +51,7 @@ services:
       - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./airflow_etl/requirements.txt:/opt/airflow/requirements.txt
       - ./airflow_etl/logs:/opt/airflow/logs
+      - ./airflow_etl/last_processed_date.json:/opt/airflow/last_processed_date.json
     environment:
       - LOAD_EX=n
       - EXECUTOR=Sequential

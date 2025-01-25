@@ -15,7 +15,7 @@ def airqino_etl_to_mongo():
 
     @task
     def filter_data(data):
-        last_processed_date = get_last_processed_date('/tmp/last_processed_date.json')
+        last_processed_date = get_last_processed_date('/opt/airflow/last_processed_date.json')
         return filter_new_data(data, last_processed_date)
 
     @task
@@ -25,7 +25,7 @@ def airqino_etl_to_mongo():
     @task
     def load_to_mongo(data):
         load_data_to_mongo(data, "air_quality", "daily_averages")
-        update_last_processed_date('/tmp/last_processed_date.json', data['date'].max())
+        update_last_processed_date('/opt/airflow/last_processed_date.json', data['date'].max())
 
     data = extract_data()
     filtered_data = filter_data(data)
