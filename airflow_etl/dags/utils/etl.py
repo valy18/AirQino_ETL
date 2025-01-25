@@ -7,7 +7,6 @@ def extract_all_data(station_id):
     """
     Extrait les données de l'API et retourne un DataFrame.
     """
-
     url = 'https://airqino-api.magentalab.it/v3/getStationHourlyAvg/'
     api_url = f"{url}{station_id}"
     response = requests.get(api_url)
@@ -18,12 +17,13 @@ def extract_all_data(station_id):
     else:
         raise Exception(f"Erreur API : {response.status_code}")
 
-
 def filter_new_data(df, last_processed_date):
     """
     Filtre les données après la dernière date traitée.
     """
-    return df[df['timestamp'] > last_processed_date]
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+    filtered_df = df[df['timestamp'] > last_processed_date]
+    return filtered_df
 
 def calculate_daily_averages(df):
     """
@@ -34,29 +34,14 @@ def calculate_daily_averages(df):
     daily_avg = df.groupby(['date'])[['CO', 'PM2.5']].mean().reset_index()
     return daily_avg
 
-
 def load_data_to_mongo(data, db_name, collection_name):
     """
     Charge les données dans une collection MongoDB.
     """
     from pymongo import MongoClient
 
-    client = MongoClient("mongodb://localhost:27017/")
+    client = MongoClient("mongodb://mongodb:27017/")
     db = client[db_name]
     collection = db[collection_name]
     data['date'] = data['date'].astype(str)
     collection.insert_many(data.to_dict(orient='records'))
-    print("Données chargées avec succès dans MongoDB.")
-
-def find_mongo():
-    """ test la connexion à la base de données MongoDB """
-    
-    from pymongo import MongoClient
-
-    client = MongoClient("mongodb://localhost:27017/")
-    db = client["air_quality"]
-    collection = db["daily_averages"]
-    
-    # Itérer sur le curseur et imprimer chaque document
-    for document in collection.find():
-        print(document)

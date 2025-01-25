@@ -1,17 +1,6 @@
 version: '3.9'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-    depends_on:
-      - mongodb
-    environment:
-      - MONGO_URI=mongodb://mongodb:27017
-    command: ["python", "main.py"]
 
   mongodb:
     image: mongo:6.0
@@ -20,18 +9,70 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo-data:/data/db
+    networks:
+      - airflow_network
 
-  airflow:
+  webserver:
     image: apache/airflow:2.6.0
-    container_name: airflow
+    command: webserver
+    entrypoint: ['/opt/airflow/script/entrypoint.sh']
+    depends_on:
+      - postgres
     environment:
-      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
-      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=sqlite:////tmp/airflow.db
-    ports:
-      - "8080:8080"
+      - LOAD_EX=n
+      - EXECUTOR=Sequential
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
     volumes:
       - ./airflow_etl/dags:/opt/airflow/dags
-      - ./airflow_etl/logs:/opt/airflow/logs
-      - ./airflow_etl/utils:/opt/airflow/utils
+      - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./airflow_etl/requirements.txt:/opt/airflow/requirements.txt
-    command: ["webserver"]
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ['CMD-SHELL', "[ -f /opt/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    networks:
+      - airflow_network
+
+  scheduler:
+    image: apache/airflow:2.6.0
+    depends_on:
+      webserver:
+        condition: service_healthy
+    volumes:
+      - ./airflow_etl/dags:/opt/airflow/dags
+      - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
+      - ./airflow_etl/requirements.txt:/opt/airflow/requirements.txt
+      - ./airflow_etl/logs:/opt/airflow/logs
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Sequential
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
+    command: bash -c "pip install -r ./requirements.txt && airflow db upgrade && airflow scheduler"
+    networks:
+      - airflow_network
+  
+  postgres:
+    image: postgres:14.0
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    networks:
+      - airflow_network
+
+networks:
+  airflow_network:
+    name: airflow_network

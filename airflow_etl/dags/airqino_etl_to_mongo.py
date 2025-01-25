@@ -1,10 +1,11 @@
 from airflow.decorators import dag, task
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from utils.etl import extract_all_data, filter_new_data, calculate_daily_averages, load_data_to_mongo
+from utils.helpers import get_last_processed_date, update_last_processed_date
 from datetime import datetime
-from airflow_etl.utils.etl import extract_all_data, filter_new_data, calculate_daily_averages, load_data_to_mongo
-from airflow_etl.utils.helpers import get_last_processed_date, update_last_processed_date
+import pandas as pd
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @dag(schedule_interval='@daily', start_date=datetime(2021, 1, 1), catchup=False)
 def airqino_etl_to_mongo():
@@ -30,3 +31,5 @@ def airqino_etl_to_mongo():
     filtered_data = filter_data(data)
     daily_averages = calculate_averages(filtered_data)
     load_to_mongo(daily_averages)
+
+dag_instance = airqino_etl_to_mongo()
