@@ -7,15 +7,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@dag(schedule_interval='@daily', start_date=datetime(2021, 1, 1), catchup=False)
+@dag(schedule_interval='30 23 * * *', start_date=datetime(2021, 1, 1), catchup=False)
 def airqino_etl_to_mongo():
     @task
     def extract_data():
-        return extract_all_data("283164601")
+        return extract_all_data("/opt/airflow/data.json")
 
     @task
     def filter_data(data):
-        last_processed_date = get_last_processed_date('/opt/airflow/last_processed_date.json')
+        last_processed_date = get_last_processed_date('/opt/airflow/data.json')
         return filter_new_data(data, last_processed_date)
 
     @task
@@ -25,7 +25,7 @@ def airqino_etl_to_mongo():
     @task
     def load_to_mongo(data):
         load_data_to_mongo(data, "air_quality", "daily_averages")
-        update_last_processed_date('/opt/airflow/last_processed_date.json', data['date'].max())
+        update_last_processed_date('/opt/airflow/data.json', data['date'].max())
 
     data = extract_data()
     filtered_data = filter_data(data)

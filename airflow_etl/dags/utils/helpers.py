@@ -15,11 +15,20 @@ def get_last_processed_date(filepath):
 
 def update_last_processed_date(filepath, last_date):
     """
-    Met à jour la dernière date traitée dans un fichier JSON.
+    Met à jour la dernière date traitée dans un fichier JSON sans remplacer tout le contenu.
     """
-    # Convertir last_date en pd.Timestamp si nécessaire
+    # Lire le contenu existant du fichier
+    try:
+        with open(filepath, 'r') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {}
+
+    # Mettre à jour la clé 'last_processed_date'
     if isinstance(last_date, str):
         last_date = pd.Timestamp(last_date)
-    
+    data['last_processed_date'] = last_date.isoformat()
+
+    # Écrire le contenu mis à jour dans le fichier
     with open(filepath, 'w') as f:
-        json.dump({'last_processed_date': last_date.isoformat()}, f)
+        json.dump(data, f, indent=4)
