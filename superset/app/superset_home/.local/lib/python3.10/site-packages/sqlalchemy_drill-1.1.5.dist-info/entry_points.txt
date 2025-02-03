@@ -1,0 +1,5 @@
+[sqlalchemy.dialects]
+drill = sqlalchemy_drill.sadrill:DrillDialect_sadrill
+drill.jdbc = sqlalchemy_drill.jdbc:DrillDialect_jdbc
+drill.odbc = sqlalchemy_drill.odbc:DrillDialect_odbc
+drill.sadrill = sqlalchemy_drill.sadrill:DrillDialect_sadrill
