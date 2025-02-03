@@ -7,7 +7,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@dag(schedule_interval='@daily', start_date=datetime(2021, 1, 1), catchup=False)
+@dag(schedule_interval='30 23 * * *', start_date=datetime(2021, 1, 1), catchup=False)
 def airqino_etl_to_mongo():
     @task
     def extract_data():
