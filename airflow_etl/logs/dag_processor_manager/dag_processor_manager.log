@@ -3931,3 +3931,11 @@ File Path                                  PID    Runtime      # DAGs    # Error
 ================================================================================
 [2025-02-03T00:11:22.054+0000] {manager.py:758} INFO - Searching for files in /opt/airflow/dags
 [2025-02-03T00:11:22.085+0000] {manager.py:761} INFO - There are 1 files in /opt/airflow/dags
+[2025-02-03T00:11:48.739+0000] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/airqino_etl_to_mongo.py                           1           0  1.24s           2025-02-03T00:11:48
+================================================================================

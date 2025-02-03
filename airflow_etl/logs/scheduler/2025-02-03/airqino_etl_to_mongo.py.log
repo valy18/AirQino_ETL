@@ -152,3 +152,10 @@
 [2025-02-03T00:11:17.235+0000] {logging_mixin.py:149} INFO - [2025-02-03T00:11:17.234+0000] {dag.py:2726} INFO - Sync 1 DAGs
 [2025-02-03T00:11:17.262+0000] {logging_mixin.py:149} INFO - [2025-02-03T00:11:17.262+0000] {dag.py:3490} INFO - Setting next_dagrun for airqino_etl_to_mongo to 2025-02-03T00:00:00+00:00, run_after=2025-02-04T00:00:00+00:00
 [2025-02-03T00:11:17.283+0000] {processor.py:178} INFO - Processing /opt/airflow/dags/airqino_etl_to_mongo.py took 0.708 seconds
+[2025-02-03T00:11:47.518+0000] {processor.py:156} INFO - Started process (PID=2247) to work on /opt/airflow/dags/airqino_etl_to_mongo.py
+[2025-02-03T00:11:47.520+0000] {processor.py:799} INFO - Processing file /opt/airflow/dags/airqino_etl_to_mongo.py for tasks to queue
+[2025-02-03T00:11:47.522+0000] {logging_mixin.py:149} INFO - [2025-02-03T00:11:47.522+0000] {dagbag.py:541} INFO - Filling up the DagBag from /opt/airflow/dags/airqino_etl_to_mongo.py
+[2025-02-03T00:11:48.430+0000] {processor.py:809} INFO - DAG(s) dict_keys(['airqino_etl_to_mongo']) retrieved from /opt/airflow/dags/airqino_etl_to_mongo.py
+[2025-02-03T00:11:48.457+0000] {logging_mixin.py:149} INFO - [2025-02-03T00:11:48.457+0000] {dag.py:2726} INFO - Sync 1 DAGs
+[2025-02-03T00:11:48.492+0000] {logging_mixin.py:149} INFO - [2025-02-03T00:11:48.492+0000] {dag.py:3490} INFO - Setting next_dagrun for airqino_etl_to_mongo to 2025-02-03T00:00:00+00:00, run_after=2025-02-04T00:00:00+00:00
+[2025-02-03T00:11:48.714+0000] {processor.py:178} INFO - Processing /opt/airflow/dags/airqino_etl_to_mongo.py took 1.202 seconds
