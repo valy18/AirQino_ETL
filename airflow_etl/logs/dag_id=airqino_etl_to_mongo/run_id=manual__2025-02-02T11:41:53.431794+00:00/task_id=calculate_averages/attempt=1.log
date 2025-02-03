@@ -1,0 +1,26 @@
+[2025-02-02T11:42:42.393+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airqino_etl_to_mongo.calculate_averages manual__2025-02-02T11:41:53.431794+00:00 [queued]>
+[2025-02-02T11:42:42.402+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airqino_etl_to_mongo.calculate_averages manual__2025-02-02T11:41:53.431794+00:00 [queued]>
+[2025-02-02T11:42:42.403+0000] {taskinstance.py:1331} INFO - Starting attempt 1 of 1
+[2025-02-02T11:42:42.421+0000] {taskinstance.py:1350} INFO - Executing <Task(_PythonDecoratedOperator): calculate_averages> on 2025-02-02 11:41:53.431794+00:00
+[2025-02-02T11:42:42.426+0000] {standard_task_runner.py:57} INFO - Started process 2030 to run task
+[2025-02-02T11:42:42.429+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'airqino_etl_to_mongo', 'calculate_averages', 'manual__2025-02-02T11:41:53.431794+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/airqino_etl_to_mongo.py', '--cfg-path', '/tmp/tmpnvha9dqu']
+[2025-02-02T11:42:42.430+0000] {standard_task_runner.py:85} INFO - Job 16: Subtask calculate_averages
+[2025-02-02T11:42:42.473+0000] {task_command.py:410} INFO - Running <TaskInstance: airqino_etl_to_mongo.calculate_averages manual__2025-02-02T11:41:53.431794+00:00 [running]> on host f8536320e0f2
+[2025-02-02T11:42:43.556+0000] {taskinstance.py:1570} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='airqino_etl_to_mongo' AIRFLOW_CTX_TASK_ID='calculate_averages' AIRFLOW_CTX_EXECUTION_DATE='2025-02-02T11:41:53.431794+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-02T11:41:53.431794+00:00'
+[2025-02-02T11:42:43.582+0000] {python.py:183} INFO - Done. Returned value was:            date station_id        CO      PM2.5
+0    2024-02-03  283164601  0.000000  14.469444
+1    2024-02-03  283181971  0.000000  27.916667
+2    2024-02-04  283164601  0.000000  13.919131
+3    2024-02-05  283164601  0.000000  16.150717
+4    2024-02-05  283181971  0.018406  29.675264
+..          ...        ...       ...        ...
+700  2025-01-31  283181971  0.178645  18.454347
+701  2025-02-01  283164601  0.000000   4.433020
+702  2025-02-01  283181971  0.199676  17.613978
+703  2025-02-02  283164601  0.000000   4.267960
+704  2025-02-02  283181971  0.134672  18.137373
+
+[705 rows x 4 columns]
+[2025-02-02T11:42:43.623+0000] {taskinstance.py:1373} INFO - Marking task as SUCCESS. dag_id=airqino_etl_to_mongo, task_id=calculate_averages, execution_date=20250202T114153, start_date=20250202T114242, end_date=20250202T114243
+[2025-02-02T11:42:43.680+0000] {local_task_job_runner.py:232} INFO - Task exited with return code 0
+[2025-02-02T11:42:43.733+0000] {taskinstance.py:2674} INFO - 1 downstream tasks scheduled from follow-on schedule check

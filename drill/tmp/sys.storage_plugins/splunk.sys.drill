@@ -1,0 +1,12 @@
+{
+  "type" : "splunk",
+  "username" : "admin",
+  "password" : "changeme",
+  "hostname" : "localhost",
+  "port" : 8089,
+  "earliestTime" : "-14d",
+  "latestTime" : "now",
+  "reconnectRetries" : 2,
+  "authMode" : "SHARED_USER",
+  "writerBatchSize" : 1000
+}

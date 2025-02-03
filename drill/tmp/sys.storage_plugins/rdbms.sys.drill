@@ -1,0 +1,16 @@
+{
+  "type" : "jdbc",
+  "driver" : "xxx.Driver",
+  "url" : "jdbc:xxx:xxx",
+  "username" : "xxx",
+  "password" : "xxx",
+  "sourceParameters" : {
+    "keepaliveTime" : 0,
+    "minimumIdle" : 0,
+    "idleTimeout" : 3600000,
+    "maximumPoolSize" : 10,
+    "maxLifetime" : 21600000
+  },
+  "authMode" : "SHARED_USER",
+  "writerBatchSize" : 10000
+}

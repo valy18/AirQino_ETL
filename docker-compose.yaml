@@ -1,6 +1,29 @@
 version: '3.9'
 
 services:
+  airflow:
+    image: apache/airflow:2.6.0
+    depends_on:
+      - mongodb
+    entrypoint: /opt/airflow/script/entrypoint.sh
+    environment:
+      - EXECUTOR=Sequential
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
+    volumes:
+      - ./airflow_etl/dags:/opt/airflow/dags
+      - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
+      - ./airflow_etl/logs:/opt/airflow/logs
+      - ./airflow_etl/data.json:/opt/airflow/data.json
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ['CMD-SHELL', "[ -f /opt/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    networks:
+      - airflow_network
 
   mongodb:
     image: mongo:6.0
@@ -12,65 +35,41 @@ services:
     networks:
       - airflow_network
 
-  webserver:
-    image: apache/airflow:2.6.0
-    command: webserver
-    entrypoint: ['/opt/airflow/script/entrypoint.sh']
-    depends_on:
-      - postgres
+  superset:
+    image: apache/superset:latest
+    container_name: superset
     environment:
-      - LOAD_EX=n
-      - EXECUTOR=Sequential
-      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
-    volumes:
-      - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
+      SUPERSET_SECRET_KEY: "this_is_a_very_secured_key"
+      SUPERSET_SQLALCHEMY_DATABASE_URI: "sqlite:////var/lib/superset/superset.db"
     ports:
-      - "8080:8080"
-    healthcheck:
-      test: ['CMD-SHELL', "[ -f /opt/airflow/airflow-webserver.pid ]"]
-      interval: 30s
-      timeout: 30s
-      retries: 3
+      - "8088:8088"
+    volumes:
+      - ./superset/superset.db:/var/lib/superset/superset.db
+      - ./superset/app:/app
+    command: >  
+      /bin/bash -c "
+      mongosqld --mongo-uri 'mongodb://mongodb:27017' &
+      pip install sqlalchemy-drill &&
+      superset db upgrade &&
+      superset fab create-admin --username admin --firstname Admin --lastname User --email admin@example.com --password admin &&
+      superset init &&
+      superset run -h 0.0.0.0 -p 8088
+      "
     networks:
       - airflow_network
 
-  scheduler:
-    image: apache/airflow:2.6.0
-    depends_on:
-      webserver:
-        condition: service_healthy
+  drill:
+    image: apache/drill:latest
+    container_name: drill
+    ports:
+      - "8047:8047"
     volumes:
-      - ./airflow_etl/dags:/opt/airflow/dags
-      - ./airflow_etl/script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
-      - ./airflow_etl/requirements.txt:/opt/airflow/requirements.txt
-      - ./airflow_etl/logs:/opt/airflow/logs
-      - ./airflow_etl/data.json:/opt/airflow/data.json
-    environment:
-      - LOAD_EX=n
-      - EXECUTOR=Sequential
-      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-      - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
-    command: bash -c "pip install -r ./requirements.txt && airflow db upgrade && airflow scheduler"
+      - ./drill/tmp:/tmp/drill
+    command: /opt/drill/bin/drill-embedded
+    stdin_open: true
+    tty: true
     networks:
-      - airflow_network
-  
-  postgres:
-    image: postgres:14.0
-    environment:
-      - POSTGRES_USER=airflow
-      - POSTGRES_PASSWORD=airflow
-      - POSTGRES_DB=airflow
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
-    networks:
-      - airflow_network
+      - airflow_network      
 
 networks:
   airflow_network:

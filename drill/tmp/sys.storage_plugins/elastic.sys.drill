@@ -1,0 +1,7 @@
+{
+  "type" : "elastic",
+  "hosts" : [ "http://localhost:9200" ],
+  "authMode" : "SHARED_USER",
+  "disableSSLVerification" : false,
+  "enabled" : false
+}

@@ -1,0 +1,106 @@
+{
+  "type" : "file",
+  "connection" : "classpath:///",
+  "formats" : {
+    "parquet" : {
+      "type" : "parquet"
+    },
+    "avro" : {
+      "type" : "avro",
+      "extensions" : [ "avro" ]
+    },
+    "json" : {
+      "type" : "json",
+      "extensions" : [ "json" ]
+    },
+    "csvh" : {
+      "type" : "text",
+      "extensions" : [ "csvh" ],
+      "lineDelimiter" : "\n",
+      "fieldDelimiter" : ",",
+      "quote" : "\"",
+      "escape" : "\"",
+      "comment" : "#",
+      "extractHeader" : true
+    },
+    "tsv" : {
+      "type" : "text",
+      "extensions" : [ "tsv" ],
+      "lineDelimiter" : "\n",
+      "fieldDelimiter" : "\t",
+      "quote" : "\"",
+      "escape" : "\"",
+      "comment" : "#"
+    },
+    "csv" : {
+      "type" : "text",
+      "extensions" : [ "csv" ],
+      "lineDelimiter" : "\n",
+      "fieldDelimiter" : ",",
+      "quote" : "\"",
+      "escape" : "\"",
+      "comment" : "#"
+    },
+    "spss" : {
+      "type" : "spss",
+      "extensions" : [ "sav" ]
+    },
+    "httpd" : {
+      "type" : "httpd",
+      "extensions" : [ "httpd" ],
+      "logFormat" : "common\ncombined"
+    },
+    "pcap" : {
+      "type" : "pcap",
+      "extensions" : [ "pcap", "pcapng" ]
+    },
+    "pdf" : {
+      "type" : "pdf",
+      "extensions" : [ "pdf" ],
+      "extractHeaders" : true,
+      "extractionAlgorithm" : "basic"
+    },
+    "shp" : {
+      "type" : "shp",
+      "extensions" : [ "shp" ]
+    },
+    "msaccess" : {
+      "type" : "msaccess",
+      "extensions" : [ "mdb", "accdb" ]
+    },
+    "hdf5" : {
+      "type" : "hdf5",
+      "extensions" : [ "h5" ],
+      "defaultPath" : null
+    },
+    "ltsv" : {
+      "type" : "ltsv",
+      "extensions" : [ "ltsv" ],
+      "parseMode" : "lenient",
+      "escapeCharacter" : null,
+      "kvDelimiter" : null,
+      "entryDelimiter" : null,
+      "lineEnding" : null,
+      "quoteChar" : null
+    },
+    "image" : {
+      "type" : "image",
+      "extensions" : [ "jpg", "jpeg", "jpe", "tif", "tiff", "dng", "psd", "png", "bmp", "gif", "ico", "pcx", "wav", "wave", "avi", "webp", "mov", "mp4", "m4a", "m4p", "m4b", "m4r", "m4v", "3gp", "3g2", "eps", "epsf", "epsi", "ai", "arw", "crw", "cr2", "nef", "orf", "raf", "rw2", "rwl", "srw", "x3f" ],
+      "fileSystemMetadata" : true,
+      "descriptive" : true
+    },
+    "excel" : {
+      "type" : "excel",
+      "extensions" : [ "xlsx" ],
+      "lastRow" : 1048576,
+      "ignoreErrors" : true,
+      "maxArraySize" : -1,
+      "thresholdBytesForTempFiles" : -1
+    },
+    "sas" : {
+      "type" : "sas",
+      "extensions" : [ "sas7bdat" ]
+    }
+  },
+  "authMode" : "SHARED_USER"
+}

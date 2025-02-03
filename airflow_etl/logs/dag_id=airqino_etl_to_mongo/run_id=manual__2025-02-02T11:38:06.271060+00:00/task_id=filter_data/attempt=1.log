@@ -1,0 +1,37 @@
+[2025-02-02T11:39:38.630+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airqino_etl_to_mongo.filter_data manual__2025-02-02T11:38:06.271060+00:00 [queued]>
+[2025-02-02T11:39:38.639+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airqino_etl_to_mongo.filter_data manual__2025-02-02T11:38:06.271060+00:00 [queued]>
+[2025-02-02T11:39:38.640+0000] {taskinstance.py:1331} INFO - Starting attempt 1 of 1
+[2025-02-02T11:39:38.661+0000] {taskinstance.py:1350} INFO - Executing <Task(_PythonDecoratedOperator): filter_data> on 2025-02-02 11:38:06.271060+00:00
+[2025-02-02T11:39:38.666+0000] {standard_task_runner.py:57} INFO - Started process 1812 to run task
+[2025-02-02T11:39:38.671+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'airqino_etl_to_mongo', 'filter_data', 'manual__2025-02-02T11:38:06.271060+00:00', '--job-id', '11', '--raw', '--subdir', 'DAGS_FOLDER/airqino_etl_to_mongo.py', '--cfg-path', '/tmp/tmpf_fa7u_y']
+[2025-02-02T11:39:38.673+0000] {standard_task_runner.py:85} INFO - Job 11: Subtask filter_data
+[2025-02-02T11:39:38.717+0000] {task_command.py:410} INFO - Running <TaskInstance: airqino_etl_to_mongo.filter_data manual__2025-02-02T11:38:06.271060+00:00 [running]> on host f8536320e0f2
+[2025-02-02T11:39:43.181+0000] {taskinstance.py:1570} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='airqino_etl_to_mongo' AIRFLOW_CTX_TASK_ID='filter_data' AIRFLOW_CTX_EXECUTION_DATE='2025-02-02T11:38:06.271060+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-02T11:38:06.271060+00:00'
+[2025-02-02T11:39:43.268+0000] {python.py:183} INFO - Done. Returned value was:                 timestamp        CO          T  ...      PM2.5         RH  station_id
+8513  2025-02-02 01:00:00  0.000000  28.646667  ...   2.766667  92.006670   283164601
+8514  2025-02-02 02:00:00  0.000000  28.483334  ...   2.833333  92.873340   283164601
+8515  2025-02-02 03:00:00  0.000000  28.423334  ...   2.666667  92.833336   283164601
+8516  2025-02-02 04:00:00  0.000000  28.336668  ...   2.900000  92.460000   283164601
+8517  2025-02-02 05:00:00  0.000000  27.840000  ...   4.400000  94.513336   283164601
+8518  2025-02-02 06:00:00  0.000000  27.525806  ...   5.677419  96.241936   283164601
+8519  2025-02-02 07:00:00  0.000000  27.343334  ...   6.433333  97.076670   283164601
+8520  2025-02-02 08:00:00  0.000000  27.286667  ...   7.766667  98.420000   283164601
+8521  2025-02-02 09:00:00  0.000000  26.970001  ...   5.066667  95.750000   283164601
+8522  2025-02-02 10:00:00  0.000000  27.410000  ...   3.400000  88.200005   283164601
+8523  2025-02-02 11:00:00  0.000000  28.773685  ...   4.263158  81.868420   283164601
+16213 2025-02-02 01:00:00  0.145137  28.216667  ...  13.633333  92.216670   283181971
+16214 2025-02-02 02:00:00  0.148030  28.110000  ...  14.933333  92.866670   283181971
+16215 2025-02-02 03:00:00  0.067513  27.970001  ...  14.366667  92.970000   283181971
+16216 2025-02-02 04:00:00  0.065040  27.766666  ...  14.100000  93.560005   283181971
+16217 2025-02-02 05:00:00  0.077443  27.596666  ...  16.933332  93.733340   283181971
+16218 2025-02-02 06:00:00  0.113977  27.276667  ...  21.933332  95.050000   283181971
+16219 2025-02-02 07:00:00  0.196537  27.093334  ...  27.000000  95.993330   283181971
+16220 2025-02-02 08:00:00  0.238250  27.226667  ...  26.900000  96.263336   283181971
+16221 2025-02-02 09:00:00  0.180580  26.913334  ...  20.633333  94.323330   283181971
+16222 2025-02-02 10:00:00  0.081337  27.553333  ...  15.366667  86.423330   283181971
+16223 2025-02-02 11:00:00  0.078540  28.930000  ...  17.850000  80.410000   283181971
+
+[22 rows x 10 columns]
+[2025-02-02T11:39:46.549+0000] {taskinstance.py:1373} INFO - Marking task as SUCCESS. dag_id=airqino_etl_to_mongo, task_id=filter_data, execution_date=20250202T113806, start_date=20250202T113938, end_date=20250202T113946
+[2025-02-02T11:39:46.676+0000] {local_task_job_runner.py:232} INFO - Task exited with return code 0
+[2025-02-02T11:39:46.729+0000] {taskinstance.py:2674} INFO - 1 downstream tasks scheduled from follow-on schedule check

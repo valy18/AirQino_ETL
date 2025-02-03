@@ -1,0 +1,9 @@
+{
+  "type" : "phoenix",
+  "zkQuorum" : "zk.quorum.hostnames",
+  "port" : 8765,
+  "props" : {
+    "hbase.client.retries.number" : 10
+  },
+  "authMode" : "SHARED_USER"
+}

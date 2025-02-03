@@ -1,0 +1,48 @@
+[2025-02-02T11:42:47.582+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airqino_etl_to_mongo.load_to_mongo manual__2025-02-02T11:41:53.431794+00:00 [queued]>
+[2025-02-02T11:42:47.592+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airqino_etl_to_mongo.load_to_mongo manual__2025-02-02T11:41:53.431794+00:00 [queued]>
+[2025-02-02T11:42:47.592+0000] {taskinstance.py:1331} INFO - Starting attempt 1 of 1
+[2025-02-02T11:42:47.612+0000] {taskinstance.py:1350} INFO - Executing <Task(_PythonDecoratedOperator): load_to_mongo> on 2025-02-02 11:41:53.431794+00:00
+[2025-02-02T11:42:47.626+0000] {standard_task_runner.py:57} INFO - Started process 2060 to run task
+[2025-02-02T11:42:47.637+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'airqino_etl_to_mongo', 'load_to_mongo', 'manual__2025-02-02T11:41:53.431794+00:00', '--job-id', '17', '--raw', '--subdir', 'DAGS_FOLDER/airqino_etl_to_mongo.py', '--cfg-path', '/tmp/tmp3p6ui5r0']
+[2025-02-02T11:42:47.641+0000] {standard_task_runner.py:85} INFO - Job 17: Subtask load_to_mongo
+[2025-02-02T11:42:47.689+0000] {task_command.py:410} INFO - Running <TaskInstance: airqino_etl_to_mongo.load_to_mongo manual__2025-02-02T11:41:53.431794+00:00 [running]> on host f8536320e0f2
+[2025-02-02T11:42:48.215+0000] {taskinstance.py:1570} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='airqino_etl_to_mongo' AIRFLOW_CTX_TASK_ID='load_to_mongo' AIRFLOW_CTX_EXECUTION_DATE='2025-02-02T11:41:53.431794+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-02T11:41:53.431794+00:00'
+[2025-02-02T11:42:48.346+0000] {taskinstance.py:1847} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/decorators/base.py", line 220, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/airqino_etl_to_mongo.py", line 27, in load_to_mongo
+    load_data_to_mongo(data, "air_quality", "daily_averages")
+  File "/opt/airflow/dags/utils/etl.py", line 63, in load_data_to_mongo
+    collection.insert_many(data.to_dict(orient='records'))
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/collection.py", line 761, in insert_many
+    blk.execute(write_concern, session=session)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/bulk.py", line 528, in execute
+    return self.execute_command(generator, write_concern, session)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/bulk.py", line 360, in execute_command
+    self.is_retryable, retryable_bulk, s, self)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/mongo_client.py", line 1384, in _retry_with_session
+    return self._retry_internal(retryable, func, session, bulk)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/mongo_client.py", line 1416, in _retry_internal
+    return func(session, sock_info, retryable)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/bulk.py", line 355, in retryable_bulk
+    retryable, full_result)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/bulk.py", line 309, in _execute_command
+    result, to_send = bwc.execute(ops, client)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/message.py", line 906, in execute
+    request_id, msg, to_send = self._batch_command(docs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/message.py", line 900, in _batch_command
+    self.codec, self)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/message.py", line 1398, in _do_bulk_write_command
+    namespace, operation, command, docs, check_keys, opts, ctx)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pymongo/message.py", line 1323, in _do_batched_op_msg
+    operation, command, docs, check_keys, ack, opts, ctx)
+bson.errors.InvalidDocument: cannot encode object: datetime.date(2024, 2, 3), of type: <class 'datetime.date'>
+[2025-02-02T11:42:48.356+0000] {taskinstance.py:1373} INFO - Marking task as FAILED. dag_id=airqino_etl_to_mongo, task_id=load_to_mongo, execution_date=20250202T114153, start_date=20250202T114247, end_date=20250202T114248
+[2025-02-02T11:42:48.373+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 17 for task load_to_mongo (cannot encode object: datetime.date(2024, 2, 3), of type: <class 'datetime.date'>; 2060)
+[2025-02-02T11:42:48.389+0000] {local_task_job_runner.py:232} INFO - Task exited with return code 1
+[2025-02-02T11:42:48.403+0000] {taskinstance.py:2674} INFO - 0 downstream tasks scheduled from follow-on schedule check

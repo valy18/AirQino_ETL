@@ -59,4 +59,5 @@ def load_data_to_mongo(data, db_name, collection_name):
     db = client[db_name]
     collection = db[collection_name]
     data['date'] = data['date'].astype(str)
+    data = data.rename(columns=lambda x: x.replace('.', '_'))
     collection.insert_many(data.to_dict(orient='records'))

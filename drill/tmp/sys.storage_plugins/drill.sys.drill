@@ -1,0 +1,5 @@
+{
+  "type" : "drill",
+  "connection" : "jdbc:drill:drillbit=localhost:31010",
+  "authMode" : "SHARED_USER"
+}

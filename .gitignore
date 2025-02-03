@@ -1,5 +1,3 @@
-mongo-data/
 .venv/
 /airflow_etl/dags/__pycache__
-airflow_etl/logs/
 airflow_etl/dags/utils/__pycache__

@@ -1,0 +1,15 @@
+{
+  "type" : "mongo",
+  "connection" : "mongodb://mongodb:27017/",
+  "pluginOptimizations" : {
+    "supportsProjectPushdown" : true,
+    "supportsFilterPushdown" : true,
+    "supportsAggregatePushdown" : true,
+    "supportsSortPushdown" : true,
+    "supportsUnionPushdown" : true,
+    "supportsLimitPushdown" : true
+  },
+  "batchSize" : 100,
+  "enabled" : true,
+  "authMode" : "SHARED_USER"
+}

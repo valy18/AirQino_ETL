@@ -1,0 +1,6 @@
+{
+  "type" : "http",
+  "retryDelay" : 1000,
+  "proxyType" : "direct",
+  "authMode" : "SHARED_USER"
+}

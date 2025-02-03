@@ -1,0 +1,6 @@
+{
+  "type" : "cassandra",
+  "host" : "localhost",
+  "port" : 9042,
+  "authMode" : "SHARED_USER"
+}

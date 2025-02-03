@@ -1,0 +1,5 @@
+{
+  "type" : "openTSDB",
+  "connection" : "http://localhost:10000",
+  "authMode" : "SHARED_USER"
+}
