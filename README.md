@@ -46,6 +46,8 @@ Le projet est structuré comme suit :
    docker compose up -d
    ```
 3. **Accéder aux services**
+   user : admin
+   pwd  : admin
    - **Airflow UI** : [http://localhost:8080](http://localhost:8080)
    - **Superset** : [http://localhost:8088](http://localhost:8088)
    - **Drill UI** : [http://localhost:8047](http://localhost:8047)
